@@ -10,7 +10,8 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
-    }
+    },
+    "./test-vectors.json": "./test-vectors.json"
   },
   "files": ["dist", "src", "test-vectors.json", "FORMAT.md", "LICENSE", "README.md"],
   "scripts": {
