@@ -1,0 +1,21 @@
+{
+  "name": "@olobolo-com/chain",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Canonical serialization, hashing and verification for OLOBOLO evidence chains (frozen schema v0).",
+  "author": "OLOBOLO ApS",
+  "license": "Apache-2.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": ["dist", "src", "test-vectors.json", "FORMAT.md", "LICENSE", "README.md"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "biome check .",
+    "test": "bun test"
+  }
+}
