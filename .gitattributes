@@ -1,0 +1,4 @@
+# Copyright (c) 2026 OLOBOLO ApS
+# Travels with the mirror to olobolo-com/chain: keep LF everywhere.
+* text=auto eol=lf
+test-vectors.json -text
