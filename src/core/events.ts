@@ -4,11 +4,28 @@
 // 1:1 from the OLOBOLO datamodel. Metadata only: hashes, references and
 // counts — never source code, prompts, spec text, review comments or test
 // output. Optional fields are omitted when absent (never null).
+//
+// schema_version "1" (SPEC-031 / ADR-005): actors become pseudonymous —
+// ActorRef carries a random UUID and non-personal tool metadata only;
+// identities live in the deletable actor register, never in the chain.
+// v1 also adds the admin.actioned event type (SPEC-024 K3 / SPEC-031 K5).
 
+/** v0 actor — carries git_identity. Frozen; valid only in v0 entries. */
 export interface Actor {
   actor_id: string;
   actor_type: 'human' | 'agent';
   git_identity: string;
+  agent_tool?: string;
+  agent_model?: string;
+  agent_version?: string;
+}
+
+/** v1 actor — a pseudonymous reference. actor_id is a random UUID with no
+ *  mathematical link to any identity (SPEC-031 ✅1); tool metadata is not
+ *  personal data. Never a username, email or display name. */
+export interface ActorRef {
+  actor_id: string; // UUID v4
+  actor_type: 'human' | 'agent';
   agent_tool?: string;
   agent_model?: string;
   agent_version?: string;
@@ -64,9 +81,27 @@ export interface ReleaseSealed {
   sealed_at: string;
 }
 
+/** admin.actioned (v1 only) — an administrative act on the platform itself
+ *  (SPEC-024 K3 / SPEC-031 K5). The deletion of an actor-register entry is
+ *  recorded with the pseudonymous actor_id alone — never the deleted
+ *  identity. details_hash may reference an archived internal record. */
+export interface AdminActioned {
+  action:
+    | 'actor.deleted'
+    | 'plan.changed'
+    | 'badge.revoked'
+    | 'content.published'
+    | 'price.changed';
+  subject_ref: string; // what was acted on: an actor_id, org/repo id, version, …
+  actor: ActorRef; // who performed the admin action
+  details_hash?: string; // sha-256 of an archived internal record, never its text
+  actioned_at: string;
+}
+
 export type EventPayload =
   | ChangeAuthored
   | SpecLinked
   | ChangeReviewed
   | TestEvidenced
-  | ReleaseSealed;
+  | ReleaseSealed
+  | AdminActioned;

@@ -1,9 +1,13 @@
 {
-  "$schema_note": "SPEC-001 test vectors. Any implementation must reproduce every payload_hash and entry_hash from the payload/envelope objects alone; the canonical_* strings show the exact hash input (UTF-8, no BOM).",
-  "schema_version": "0",
+  "$schema_note": "SPEC-001 test vectors. Any implementation must reproduce every payload_hash and entry_hash from the payload/envelope objects alone; the canonical_* strings show the exact hash input (UTF-8, no BOM). Vectors 1-15 are the frozen v0 originals (byte-identical forever); vectors 16-33 are schema_version 1 (SPEC-031: pseudonymous actors + admin.actioned), chained onto the v0 head as one continuous chain.",
+  "schema_versions": [
+    "0",
+    "1"
+  ],
   "algo": "sha256",
   "genesis_prev_entry_hash": "0000000000000000000000000000000000000000000000000000000000000000",
-  "vector_count": 15,
+  "vector_count": 33,
+  "v0_vector_count": 15,
   "vectors": [
     {
       "seq": 1,
@@ -11,7 +15,10 @@
       "payload": {
         "commit_sha": "65390cf5a28b0196bf06fbe2dc97fd055c22988a",
         "diff_fingerprint": "58eaa1f148c2a84fbbf528f4736739e2eb9ba58385490b5b6b1098521e0bc31f",
-        "file_paths": ["src/module1.ts", "test/module1.test.ts"],
+        "file_paths": [
+          "src/module1.ts",
+          "test/module1.test.ts"
+        ],
         "actor": {
           "actor_id": "act_01J5ZX3F0AGENT00000000000001",
           "actor_type": "agent",
@@ -155,7 +162,10 @@
       "payload": {
         "commit_sha": "1c5750d361b8ad1dce62df7f17413891ab1cb743",
         "diff_fingerprint": "f551718b211e86418a9e15b369eba5af98451678837c83d1f4938e9bc96f7353",
-        "file_paths": ["src/module2.ts", "test/module2.test.ts"],
+        "file_paths": [
+          "src/module2.ts",
+          "test/module2.test.ts"
+        ],
         "actor": {
           "actor_id": "act_01J5ZX3F0HUMAN00000000000001",
           "actor_type": "human",
@@ -297,7 +307,10 @@
       "payload": {
         "commit_sha": "465b86f17e28b6ec4266f91f24de9fe73e879a5b",
         "diff_fingerprint": "6122ad5af2b2cd6ce15a5755f4eade2ab5c19c5c43eaf943209aebcdf0b05c2c",
-        "file_paths": ["src/module3.ts", "test/module3.test.ts"],
+        "file_paths": [
+          "src/module3.ts",
+          "test/module3.test.ts"
+        ],
         "actor": {
           "actor_id": "act_01J5ZX3F0AGENT00000000000001",
           "actor_type": "agent",
@@ -434,6 +447,532 @@
       },
       "canonical_envelope": "{\"algo\":\"sha256\",\"event_type\":\"release.sealed\",\"occurred_at\":\"2026-08-16T10:14:00.000Z\",\"org_id\":\"org_01J5ZX3D8LQV9W2K4M6N8P0R2T\",\"payload_hash\":\"6fdfa0cd948877cd4efdebda15ef6ff573079df1c2979429da50495c9f030d22\",\"prev_entry_hash\":\"d911d7f01c84b1ca8c4143182698bedc6df3ab68c0dc608283974c2b46380323\",\"repo_id\":\"repo_01J5ZX3EHM4B6D8F0H2K4M6P8R\",\"schema_version\":\"0\"}",
       "entry_hash": "155288257afe338b96dbcde55e8290065f821d9576df8e4471966e7c1cd98fa0"
+    },
+    {
+      "seq": 16,
+      "event_type": "change.authored",
+      "payload": {
+        "commit_sha": "b16617fc483643532a4c28e6656c0aa70dd60430",
+        "diff_fingerprint": "12ac4e342c48344186e4ab723a7ae37d63db7c0cfffbaf55a932615c5de9841f",
+        "file_paths": [
+          "src/module4.ts",
+          "test/module4.test.ts"
+        ],
+        "actor": {
+          "actor_id": "a7f3b2c1-4d5e-4f60-8a9b-0c1d2e3f4a5b",
+          "actor_type": "agent",
+          "agent_tool": "claude-code",
+          "agent_model": "claude-fable-5",
+          "agent_version": "2.x"
+        },
+        "session_ref": "ses_00000000000000000000000004",
+        "session_hash": "8c1d28e94b0a6d30f51fe1dcfd2b86d14f56bbdfda5302a47d0f2d266c907c3f",
+        "loc_added": 44,
+        "loc_removed": 20
+      },
+      "canonical_payload": "{\"actor\":{\"actor_id\":\"a7f3b2c1-4d5e-4f60-8a9b-0c1d2e3f4a5b\",\"actor_type\":\"agent\",\"agent_model\":\"claude-fable-5\",\"agent_tool\":\"claude-code\",\"agent_version\":\"2.x\"},\"commit_sha\":\"b16617fc483643532a4c28e6656c0aa70dd60430\",\"diff_fingerprint\":\"12ac4e342c48344186e4ab723a7ae37d63db7c0cfffbaf55a932615c5de9841f\",\"file_paths\":[\"src/module4.ts\",\"test/module4.test.ts\"],\"loc_added\":44,\"loc_removed\":20,\"session_hash\":\"8c1d28e94b0a6d30f51fe1dcfd2b86d14f56bbdfda5302a47d0f2d266c907c3f\",\"session_ref\":\"ses_00000000000000000000000004\"}",
+      "payload_hash": "cc3611aca00950c8c56ea5282298d4c26a4882babae99006d7a843c4356cbb01",
+      "envelope": {
+        "algo": "sha256",
+        "schema_version": "1",
+        "event_type": "change.authored",
+        "payload_hash": "cc3611aca00950c8c56ea5282298d4c26a4882babae99006d7a843c4356cbb01",
+        "prev_entry_hash": "155288257afe338b96dbcde55e8290065f821d9576df8e4471966e7c1cd98fa0",
+        "occurred_at": "2026-08-16T10:18:00.000Z",
+        "org_id": "org_01J5ZX3D8LQV9W2K4M6N8P0R2T",
+        "repo_id": "repo_01J5ZX3EHM4B6D8F0H2K4M6P8R"
+      },
+      "canonical_envelope": "{\"algo\":\"sha256\",\"event_type\":\"change.authored\",\"occurred_at\":\"2026-08-16T10:18:00.000Z\",\"org_id\":\"org_01J5ZX3D8LQV9W2K4M6N8P0R2T\",\"payload_hash\":\"cc3611aca00950c8c56ea5282298d4c26a4882babae99006d7a843c4356cbb01\",\"prev_entry_hash\":\"155288257afe338b96dbcde55e8290065f821d9576df8e4471966e7c1cd98fa0\",\"repo_id\":\"repo_01J5ZX3EHM4B6D8F0H2K4M6P8R\",\"schema_version\":\"1\"}",
+      "entry_hash": "798acf2f7214109a1a54d19a20e632b978a35bf8074d7b866d435ef7e21a7728"
+    },
+    {
+      "seq": 17,
+      "event_type": "spec.linked",
+      "payload": {
+        "change_ref": "b16617fc483643532a4c28e6656c0aa70dd60430",
+        "spec_ref": "SPEC-004",
+        "spec_version": "1.0",
+        "spec_hash": "8ea81885d224e0f1266ba63eaf41652fd2e4311e5bfdb66c9a28cf85773fc4af",
+        "linked_at": "2026-08-16T10:19:00.000Z"
+      },
+      "canonical_payload": "{\"change_ref\":\"b16617fc483643532a4c28e6656c0aa70dd60430\",\"linked_at\":\"2026-08-16T10:19:00.000Z\",\"spec_hash\":\"8ea81885d224e0f1266ba63eaf41652fd2e4311e5bfdb66c9a28cf85773fc4af\",\"spec_ref\":\"SPEC-004\",\"spec_version\":\"1.0\"}",
+      "payload_hash": "9dac1893604722df22d9f7c894cc84660aaff744b65821795aa95c0d1a6a54b6",
+      "envelope": {
+        "algo": "sha256",
+        "schema_version": "1",
+        "event_type": "spec.linked",
+        "payload_hash": "9dac1893604722df22d9f7c894cc84660aaff744b65821795aa95c0d1a6a54b6",
+        "prev_entry_hash": "798acf2f7214109a1a54d19a20e632b978a35bf8074d7b866d435ef7e21a7728",
+        "occurred_at": "2026-08-16T10:19:00.000Z",
+        "org_id": "org_01J5ZX3D8LQV9W2K4M6N8P0R2T",
+        "repo_id": "repo_01J5ZX3EHM4B6D8F0H2K4M6P8R"
+      },
+      "canonical_envelope": "{\"algo\":\"sha256\",\"event_type\":\"spec.linked\",\"occurred_at\":\"2026-08-16T10:19:00.000Z\",\"org_id\":\"org_01J5ZX3D8LQV9W2K4M6N8P0R2T\",\"payload_hash\":\"9dac1893604722df22d9f7c894cc84660aaff744b65821795aa95c0d1a6a54b6\",\"prev_entry_hash\":\"798acf2f7214109a1a54d19a20e632b978a35bf8074d7b866d435ef7e21a7728\",\"repo_id\":\"repo_01J5ZX3EHM4B6D8F0H2K4M6P8R\",\"schema_version\":\"1\"}",
+      "entry_hash": "2ba5af588a5f664992d2de15edbe3b681ecb6410e76802f10e4b2f29a19f25ed"
+    },
+    {
+      "seq": 18,
+      "event_type": "change.reviewed",
+      "payload": {
+        "change_ref": "b16617fc483643532a4c28e6656c0aa70dd60430",
+        "reviewer": {
+          "actor_id": "e1d2c3b4-a596-4877-b958-a39b8c7d6e5f",
+          "actor_type": "human"
+        },
+        "decision": "approved",
+        "thread_ref": "https://github.com/olobolo-com/olobolo/pull/4",
+        "decided_at": "2026-08-16T10:20:00.000Z"
+      },
+      "canonical_payload": "{\"change_ref\":\"b16617fc483643532a4c28e6656c0aa70dd60430\",\"decided_at\":\"2026-08-16T10:20:00.000Z\",\"decision\":\"approved\",\"reviewer\":{\"actor_id\":\"e1d2c3b4-a596-4877-b958-a39b8c7d6e5f\",\"actor_type\":\"human\"},\"thread_ref\":\"https://github.com/olobolo-com/olobolo/pull/4\"}",
+      "payload_hash": "5dfe45572b5eade197944635fc4ffe0e67103397cdaee7fca5c75d5a633d2de0",
+      "envelope": {
+        "algo": "sha256",
+        "schema_version": "1",
+        "event_type": "change.reviewed",
+        "payload_hash": "5dfe45572b5eade197944635fc4ffe0e67103397cdaee7fca5c75d5a633d2de0",
+        "prev_entry_hash": "2ba5af588a5f664992d2de15edbe3b681ecb6410e76802f10e4b2f29a19f25ed",
+        "occurred_at": "2026-08-16T10:20:00.000Z",
+        "org_id": "org_01J5ZX3D8LQV9W2K4M6N8P0R2T",
+        "repo_id": "repo_01J5ZX3EHM4B6D8F0H2K4M6P8R"
+      },
+      "canonical_envelope": "{\"algo\":\"sha256\",\"event_type\":\"change.reviewed\",\"occurred_at\":\"2026-08-16T10:20:00.000Z\",\"org_id\":\"org_01J5ZX3D8LQV9W2K4M6N8P0R2T\",\"payload_hash\":\"5dfe45572b5eade197944635fc4ffe0e67103397cdaee7fca5c75d5a633d2de0\",\"prev_entry_hash\":\"2ba5af588a5f664992d2de15edbe3b681ecb6410e76802f10e4b2f29a19f25ed\",\"repo_id\":\"repo_01J5ZX3EHM4B6D8F0H2K4M6P8R\",\"schema_version\":\"1\"}",
+      "entry_hash": "26a83b6cdd0d6229f4349980af73b21e1b2a52236adb6606094ee51d3a3aed59"
+    },
+    {
+      "seq": 19,
+      "event_type": "test.evidenced",
+      "payload": {
+        "change_ref": "b16617fc483643532a4c28e6656c0aa70dd60430",
+        "result": "passed",
+        "tests_passed": 104,
+        "tests_failed": 0,
+        "coverage_pct": "88.2",
+        "ci_run_ref": "https://github.com/olobolo-com/olobolo/actions/runs/1004",
+        "artifact_hashes": [
+          "a25ad6d90f90f0c64d334116df4fcf981fc316a2af5e8c214a04bb3722bffe79",
+          "6223d8c81ce1f733a21056fc3f2a7a5116af55d5d51b1325adfb6661a7d092f6"
+        ]
+      },
+      "canonical_payload": "{\"artifact_hashes\":[\"a25ad6d90f90f0c64d334116df4fcf981fc316a2af5e8c214a04bb3722bffe79\",\"6223d8c81ce1f733a21056fc3f2a7a5116af55d5d51b1325adfb6661a7d092f6\"],\"change_ref\":\"b16617fc483643532a4c28e6656c0aa70dd60430\",\"ci_run_ref\":\"https://github.com/olobolo-com/olobolo/actions/runs/1004\",\"coverage_pct\":\"88.2\",\"result\":\"passed\",\"tests_failed\":0,\"tests_passed\":104}",
+      "payload_hash": "eb30dbcb1f749bb70d577f9bc79fcc14b843217bf32bc30047ed4001760c9ccd",
+      "envelope": {
+        "algo": "sha256",
+        "schema_version": "1",
+        "event_type": "test.evidenced",
+        "payload_hash": "eb30dbcb1f749bb70d577f9bc79fcc14b843217bf32bc30047ed4001760c9ccd",
+        "prev_entry_hash": "26a83b6cdd0d6229f4349980af73b21e1b2a52236adb6606094ee51d3a3aed59",
+        "occurred_at": "2026-08-16T10:21:00.000Z",
+        "org_id": "org_01J5ZX3D8LQV9W2K4M6N8P0R2T",
+        "repo_id": "repo_01J5ZX3EHM4B6D8F0H2K4M6P8R"
+      },
+      "canonical_envelope": "{\"algo\":\"sha256\",\"event_type\":\"test.evidenced\",\"occurred_at\":\"2026-08-16T10:21:00.000Z\",\"org_id\":\"org_01J5ZX3D8LQV9W2K4M6N8P0R2T\",\"payload_hash\":\"eb30dbcb1f749bb70d577f9bc79fcc14b843217bf32bc30047ed4001760c9ccd\",\"prev_entry_hash\":\"26a83b6cdd0d6229f4349980af73b21e1b2a52236adb6606094ee51d3a3aed59\",\"repo_id\":\"repo_01J5ZX3EHM4B6D8F0H2K4M6P8R\",\"schema_version\":\"1\"}",
+      "entry_hash": "e47b4077a6bd0dd53a75592822c8517b768579f45248ea2d76805dd1f89af852"
+    },
+    {
+      "seq": 20,
+      "event_type": "admin.actioned",
+      "payload": {
+        "action": "plan.changed",
+        "subject_ref": "org_01J5ZX3D8LQV9W2K4M6N8P0R2T",
+        "actor": {
+          "actor_id": "a7f3b2c1-4d5e-4f60-8a9b-0c1d2e3f4a5b",
+          "actor_type": "agent",
+          "agent_tool": "claude-code",
+          "agent_model": "claude-fable-5",
+          "agent_version": "2.x"
+        },
+        "details_hash": "bd4f323be12965cdfceb7a9882d1108382007086378eac8e60c46745ff9673aa",
+        "actioned_at": "2026-08-16T10:22:00.000Z"
+      },
+      "canonical_payload": "{\"action\":\"plan.changed\",\"actioned_at\":\"2026-08-16T10:22:00.000Z\",\"actor\":{\"actor_id\":\"a7f3b2c1-4d5e-4f60-8a9b-0c1d2e3f4a5b\",\"actor_type\":\"agent\",\"agent_model\":\"claude-fable-5\",\"agent_tool\":\"claude-code\",\"agent_version\":\"2.x\"},\"details_hash\":\"bd4f323be12965cdfceb7a9882d1108382007086378eac8e60c46745ff9673aa\",\"subject_ref\":\"org_01J5ZX3D8LQV9W2K4M6N8P0R2T\"}",
+      "payload_hash": "75628149d87c9ed25ac4df2491a0e31bd81590b5605c2f16d6f8644d9fc03d57",
+      "envelope": {
+        "algo": "sha256",
+        "schema_version": "1",
+        "event_type": "admin.actioned",
+        "payload_hash": "75628149d87c9ed25ac4df2491a0e31bd81590b5605c2f16d6f8644d9fc03d57",
+        "prev_entry_hash": "e47b4077a6bd0dd53a75592822c8517b768579f45248ea2d76805dd1f89af852",
+        "occurred_at": "2026-08-16T10:22:00.000Z",
+        "org_id": "org_01J5ZX3D8LQV9W2K4M6N8P0R2T",
+        "repo_id": "repo_01J5ZX3EHM4B6D8F0H2K4M6P8R"
+      },
+      "canonical_envelope": "{\"algo\":\"sha256\",\"event_type\":\"admin.actioned\",\"occurred_at\":\"2026-08-16T10:22:00.000Z\",\"org_id\":\"org_01J5ZX3D8LQV9W2K4M6N8P0R2T\",\"payload_hash\":\"75628149d87c9ed25ac4df2491a0e31bd81590b5605c2f16d6f8644d9fc03d57\",\"prev_entry_hash\":\"e47b4077a6bd0dd53a75592822c8517b768579f45248ea2d76805dd1f89af852\",\"repo_id\":\"repo_01J5ZX3EHM4B6D8F0H2K4M6P8R\",\"schema_version\":\"1\"}",
+      "entry_hash": "32bc5d59548f557788e2b02842e8657d2b69643667a9deb426cfebb59ad18408"
+    },
+    {
+      "seq": 21,
+      "event_type": "release.sealed",
+      "payload": {
+        "version": "1.0.0",
+        "first_entry_hash": "193583f729935a12cdc99ad9c99379adf77e15df3b2fbbdb7423e8c7eb02d310",
+        "last_entry_hash": "32bc5d59548f557788e2b02842e8657d2b69643667a9deb426cfebb59ad18408",
+        "chain_hash": "143de6d56221186eca3879c896a3079132acc8859537d7f5fb0a47e7854571a0",
+        "sealed_at": "2026-08-16T10:23:00.000Z"
+      },
+      "canonical_payload": "{\"chain_hash\":\"143de6d56221186eca3879c896a3079132acc8859537d7f5fb0a47e7854571a0\",\"first_entry_hash\":\"193583f729935a12cdc99ad9c99379adf77e15df3b2fbbdb7423e8c7eb02d310\",\"last_entry_hash\":\"32bc5d59548f557788e2b02842e8657d2b69643667a9deb426cfebb59ad18408\",\"sealed_at\":\"2026-08-16T10:23:00.000Z\",\"version\":\"1.0.0\"}",
+      "payload_hash": "0b8f7edd228a7d1a4548f9debf65abb4b4c3db5562247ce9f2846d8fd4c7327a",
+      "envelope": {
+        "algo": "sha256",
+        "schema_version": "1",
+        "event_type": "release.sealed",
+        "payload_hash": "0b8f7edd228a7d1a4548f9debf65abb4b4c3db5562247ce9f2846d8fd4c7327a",
+        "prev_entry_hash": "32bc5d59548f557788e2b02842e8657d2b69643667a9deb426cfebb59ad18408",
+        "occurred_at": "2026-08-16T10:23:00.000Z",
+        "org_id": "org_01J5ZX3D8LQV9W2K4M6N8P0R2T",
+        "repo_id": "repo_01J5ZX3EHM4B6D8F0H2K4M6P8R"
+      },
+      "canonical_envelope": "{\"algo\":\"sha256\",\"event_type\":\"release.sealed\",\"occurred_at\":\"2026-08-16T10:23:00.000Z\",\"org_id\":\"org_01J5ZX3D8LQV9W2K4M6N8P0R2T\",\"payload_hash\":\"0b8f7edd228a7d1a4548f9debf65abb4b4c3db5562247ce9f2846d8fd4c7327a\",\"prev_entry_hash\":\"32bc5d59548f557788e2b02842e8657d2b69643667a9deb426cfebb59ad18408\",\"repo_id\":\"repo_01J5ZX3EHM4B6D8F0H2K4M6P8R\",\"schema_version\":\"1\"}",
+      "entry_hash": "ea0f95ea6f0e65cf8317d1bb76ad20c002c834c498a7b301fe1144893f03e7e5"
+    },
+    {
+      "seq": 22,
+      "event_type": "change.authored",
+      "payload": {
+        "commit_sha": "29e8eb0503a57273245d52b9493a4a3189817b22",
+        "diff_fingerprint": "74abb6925c9ef8d472c81329a36c05a7cc23d56372e9b2ab35305dac37f58f42",
+        "file_paths": [
+          "src/module5.ts",
+          "test/module5.test.ts"
+        ],
+        "actor": {
+          "actor_id": "e1d2c3b4-a596-4877-b958-a39b8c7d6e5f",
+          "actor_type": "human"
+        },
+        "loc_added": 45,
+        "loc_removed": 25
+      },
+      "canonical_payload": "{\"actor\":{\"actor_id\":\"e1d2c3b4-a596-4877-b958-a39b8c7d6e5f\",\"actor_type\":\"human\"},\"commit_sha\":\"29e8eb0503a57273245d52b9493a4a3189817b22\",\"diff_fingerprint\":\"74abb6925c9ef8d472c81329a36c05a7cc23d56372e9b2ab35305dac37f58f42\",\"file_paths\":[\"src/module5.ts\",\"test/module5.test.ts\"],\"loc_added\":45,\"loc_removed\":25}",
+      "payload_hash": "c72ad7ee06298583979f4644576278e54d901a6c46a282ebfe4b637e08856366",
+      "envelope": {
+        "algo": "sha256",
+        "schema_version": "1",
+        "event_type": "change.authored",
+        "payload_hash": "c72ad7ee06298583979f4644576278e54d901a6c46a282ebfe4b637e08856366",
+        "prev_entry_hash": "ea0f95ea6f0e65cf8317d1bb76ad20c002c834c498a7b301fe1144893f03e7e5",
+        "occurred_at": "2026-08-16T10:24:00.000Z",
+        "org_id": "org_01J5ZX3D8LQV9W2K4M6N8P0R2T",
+        "repo_id": "repo_01J5ZX3EHM4B6D8F0H2K4M6P8R"
+      },
+      "canonical_envelope": "{\"algo\":\"sha256\",\"event_type\":\"change.authored\",\"occurred_at\":\"2026-08-16T10:24:00.000Z\",\"org_id\":\"org_01J5ZX3D8LQV9W2K4M6N8P0R2T\",\"payload_hash\":\"c72ad7ee06298583979f4644576278e54d901a6c46a282ebfe4b637e08856366\",\"prev_entry_hash\":\"ea0f95ea6f0e65cf8317d1bb76ad20c002c834c498a7b301fe1144893f03e7e5\",\"repo_id\":\"repo_01J5ZX3EHM4B6D8F0H2K4M6P8R\",\"schema_version\":\"1\"}",
+      "entry_hash": "4f9aa4ae44c2667827f9dd9a8f0df4242a314fda29a77149ed2615fde7f2c66a"
+    },
+    {
+      "seq": 23,
+      "event_type": "spec.linked",
+      "payload": {
+        "change_ref": "29e8eb0503a57273245d52b9493a4a3189817b22",
+        "spec_ref": "SPEC-005",
+        "spec_version": "1.0",
+        "spec_hash": "1012d78484ecb8ec1355d27fe75ee4affd7501c64501292fdd47a45609d872c3",
+        "linked_at": "2026-08-16T10:25:00.000Z"
+      },
+      "canonical_payload": "{\"change_ref\":\"29e8eb0503a57273245d52b9493a4a3189817b22\",\"linked_at\":\"2026-08-16T10:25:00.000Z\",\"spec_hash\":\"1012d78484ecb8ec1355d27fe75ee4affd7501c64501292fdd47a45609d872c3\",\"spec_ref\":\"SPEC-005\",\"spec_version\":\"1.0\"}",
+      "payload_hash": "afae659df4512d0ccc1e7b28646bbec7f1bdadbf25386c64d37f70734999f3b9",
+      "envelope": {
+        "algo": "sha256",
+        "schema_version": "1",
+        "event_type": "spec.linked",
+        "payload_hash": "afae659df4512d0ccc1e7b28646bbec7f1bdadbf25386c64d37f70734999f3b9",
+        "prev_entry_hash": "4f9aa4ae44c2667827f9dd9a8f0df4242a314fda29a77149ed2615fde7f2c66a",
+        "occurred_at": "2026-08-16T10:25:00.000Z",
+        "org_id": "org_01J5ZX3D8LQV9W2K4M6N8P0R2T",
+        "repo_id": "repo_01J5ZX3EHM4B6D8F0H2K4M6P8R"
+      },
+      "canonical_envelope": "{\"algo\":\"sha256\",\"event_type\":\"spec.linked\",\"occurred_at\":\"2026-08-16T10:25:00.000Z\",\"org_id\":\"org_01J5ZX3D8LQV9W2K4M6N8P0R2T\",\"payload_hash\":\"afae659df4512d0ccc1e7b28646bbec7f1bdadbf25386c64d37f70734999f3b9\",\"prev_entry_hash\":\"4f9aa4ae44c2667827f9dd9a8f0df4242a314fda29a77149ed2615fde7f2c66a\",\"repo_id\":\"repo_01J5ZX3EHM4B6D8F0H2K4M6P8R\",\"schema_version\":\"1\"}",
+      "entry_hash": "c2f11bb07b6d6d1b0e7f331bcbb2c28fa0f0369001d3a76c8e06447a698aa3fa"
+    },
+    {
+      "seq": 24,
+      "event_type": "change.reviewed",
+      "payload": {
+        "change_ref": "29e8eb0503a57273245d52b9493a4a3189817b22",
+        "reviewer": {
+          "actor_id": "a7f3b2c1-4d5e-4f60-8a9b-0c1d2e3f4a5b",
+          "actor_type": "agent",
+          "agent_tool": "claude-code",
+          "agent_model": "claude-fable-5",
+          "agent_version": "2.x"
+        },
+        "decision": "changes",
+        "thread_ref": "https://github.com/olobolo-com/olobolo/pull/5",
+        "decided_at": "2026-08-16T10:26:00.000Z"
+      },
+      "canonical_payload": "{\"change_ref\":\"29e8eb0503a57273245d52b9493a4a3189817b22\",\"decided_at\":\"2026-08-16T10:26:00.000Z\",\"decision\":\"changes\",\"reviewer\":{\"actor_id\":\"a7f3b2c1-4d5e-4f60-8a9b-0c1d2e3f4a5b\",\"actor_type\":\"agent\",\"agent_model\":\"claude-fable-5\",\"agent_tool\":\"claude-code\",\"agent_version\":\"2.x\"},\"thread_ref\":\"https://github.com/olobolo-com/olobolo/pull/5\"}",
+      "payload_hash": "11615453f40f5bd3e974364cc131112f676fd25d46fac3f3193ce1886d0d2013",
+      "envelope": {
+        "algo": "sha256",
+        "schema_version": "1",
+        "event_type": "change.reviewed",
+        "payload_hash": "11615453f40f5bd3e974364cc131112f676fd25d46fac3f3193ce1886d0d2013",
+        "prev_entry_hash": "c2f11bb07b6d6d1b0e7f331bcbb2c28fa0f0369001d3a76c8e06447a698aa3fa",
+        "occurred_at": "2026-08-16T10:26:00.000Z",
+        "org_id": "org_01J5ZX3D8LQV9W2K4M6N8P0R2T",
+        "repo_id": "repo_01J5ZX3EHM4B6D8F0H2K4M6P8R"
+      },
+      "canonical_envelope": "{\"algo\":\"sha256\",\"event_type\":\"change.reviewed\",\"occurred_at\":\"2026-08-16T10:26:00.000Z\",\"org_id\":\"org_01J5ZX3D8LQV9W2K4M6N8P0R2T\",\"payload_hash\":\"11615453f40f5bd3e974364cc131112f676fd25d46fac3f3193ce1886d0d2013\",\"prev_entry_hash\":\"c2f11bb07b6d6d1b0e7f331bcbb2c28fa0f0369001d3a76c8e06447a698aa3fa\",\"repo_id\":\"repo_01J5ZX3EHM4B6D8F0H2K4M6P8R\",\"schema_version\":\"1\"}",
+      "entry_hash": "1c95f9b06f312b722a3b0f1ff801bae44f610e40fe7888efa2fd547ebe7f2e6a"
+    },
+    {
+      "seq": 25,
+      "event_type": "test.evidenced",
+      "payload": {
+        "change_ref": "29e8eb0503a57273245d52b9493a4a3189817b22",
+        "result": "failed",
+        "tests_passed": 105,
+        "tests_failed": 3,
+        "coverage_pct": "88.2",
+        "ci_run_ref": "https://github.com/olobolo-com/olobolo/actions/runs/1005",
+        "artifact_hashes": [
+          "b5dfdc0cbec635538cfc49f099085c1a8d6c01a325858a174c1a581f6b5c3a13",
+          "37b4e8e1cd87d801099598f8042e5784ef743788b0bb78f73ada405d98cdf8b5"
+        ]
+      },
+      "canonical_payload": "{\"artifact_hashes\":[\"b5dfdc0cbec635538cfc49f099085c1a8d6c01a325858a174c1a581f6b5c3a13\",\"37b4e8e1cd87d801099598f8042e5784ef743788b0bb78f73ada405d98cdf8b5\"],\"change_ref\":\"29e8eb0503a57273245d52b9493a4a3189817b22\",\"ci_run_ref\":\"https://github.com/olobolo-com/olobolo/actions/runs/1005\",\"coverage_pct\":\"88.2\",\"result\":\"failed\",\"tests_failed\":3,\"tests_passed\":105}",
+      "payload_hash": "3dac0a1be2432f029793b677b5b7992ec0015c353f89ef71f14f112601404e0d",
+      "envelope": {
+        "algo": "sha256",
+        "schema_version": "1",
+        "event_type": "test.evidenced",
+        "payload_hash": "3dac0a1be2432f029793b677b5b7992ec0015c353f89ef71f14f112601404e0d",
+        "prev_entry_hash": "1c95f9b06f312b722a3b0f1ff801bae44f610e40fe7888efa2fd547ebe7f2e6a",
+        "occurred_at": "2026-08-16T10:27:00.000Z",
+        "org_id": "org_01J5ZX3D8LQV9W2K4M6N8P0R2T",
+        "repo_id": "repo_01J5ZX3EHM4B6D8F0H2K4M6P8R"
+      },
+      "canonical_envelope": "{\"algo\":\"sha256\",\"event_type\":\"test.evidenced\",\"occurred_at\":\"2026-08-16T10:27:00.000Z\",\"org_id\":\"org_01J5ZX3D8LQV9W2K4M6N8P0R2T\",\"payload_hash\":\"3dac0a1be2432f029793b677b5b7992ec0015c353f89ef71f14f112601404e0d\",\"prev_entry_hash\":\"1c95f9b06f312b722a3b0f1ff801bae44f610e40fe7888efa2fd547ebe7f2e6a\",\"repo_id\":\"repo_01J5ZX3EHM4B6D8F0H2K4M6P8R\",\"schema_version\":\"1\"}",
+      "entry_hash": "aa61b0211ba3d950140906af4ab530e7305e77c0e6afec4f213b0d39a3c87d8c"
+    },
+    {
+      "seq": 26,
+      "event_type": "admin.actioned",
+      "payload": {
+        "action": "actor.deleted",
+        "subject_ref": "e1d2c3b4-a596-4877-b958-a39b8c7d6e5f",
+        "actor": {
+          "actor_id": "a7f3b2c1-4d5e-4f60-8a9b-0c1d2e3f4a5b",
+          "actor_type": "agent",
+          "agent_tool": "claude-code",
+          "agent_model": "claude-fable-5",
+          "agent_version": "2.x"
+        },
+        "details_hash": "e82ed76811e99663356b232f5ebf4ff83d7dabeaf3091d9598968b52fecfae69",
+        "actioned_at": "2026-08-16T10:28:00.000Z"
+      },
+      "canonical_payload": "{\"action\":\"actor.deleted\",\"actioned_at\":\"2026-08-16T10:28:00.000Z\",\"actor\":{\"actor_id\":\"a7f3b2c1-4d5e-4f60-8a9b-0c1d2e3f4a5b\",\"actor_type\":\"agent\",\"agent_model\":\"claude-fable-5\",\"agent_tool\":\"claude-code\",\"agent_version\":\"2.x\"},\"details_hash\":\"e82ed76811e99663356b232f5ebf4ff83d7dabeaf3091d9598968b52fecfae69\",\"subject_ref\":\"e1d2c3b4-a596-4877-b958-a39b8c7d6e5f\"}",
+      "payload_hash": "695f87f5ef22d50bacab18eca146a09edebc7e6f1e2828e0521c0ab5b591315e",
+      "envelope": {
+        "algo": "sha256",
+        "schema_version": "1",
+        "event_type": "admin.actioned",
+        "payload_hash": "695f87f5ef22d50bacab18eca146a09edebc7e6f1e2828e0521c0ab5b591315e",
+        "prev_entry_hash": "aa61b0211ba3d950140906af4ab530e7305e77c0e6afec4f213b0d39a3c87d8c",
+        "occurred_at": "2026-08-16T10:28:00.000Z",
+        "org_id": "org_01J5ZX3D8LQV9W2K4M6N8P0R2T",
+        "repo_id": "repo_01J5ZX3EHM4B6D8F0H2K4M6P8R"
+      },
+      "canonical_envelope": "{\"algo\":\"sha256\",\"event_type\":\"admin.actioned\",\"occurred_at\":\"2026-08-16T10:28:00.000Z\",\"org_id\":\"org_01J5ZX3D8LQV9W2K4M6N8P0R2T\",\"payload_hash\":\"695f87f5ef22d50bacab18eca146a09edebc7e6f1e2828e0521c0ab5b591315e\",\"prev_entry_hash\":\"aa61b0211ba3d950140906af4ab530e7305e77c0e6afec4f213b0d39a3c87d8c\",\"repo_id\":\"repo_01J5ZX3EHM4B6D8F0H2K4M6P8R\",\"schema_version\":\"1\"}",
+      "entry_hash": "5ec7ad72fe154ec3282442db3fa23a2feed2c614e0beac9978b36d65b7150763"
+    },
+    {
+      "seq": 27,
+      "event_type": "release.sealed",
+      "payload": {
+        "version": "1.0.1",
+        "first_entry_hash": "193583f729935a12cdc99ad9c99379adf77e15df3b2fbbdb7423e8c7eb02d310",
+        "last_entry_hash": "5ec7ad72fe154ec3282442db3fa23a2feed2c614e0beac9978b36d65b7150763",
+        "chain_hash": "8d095a67ce1c654659bf36bba56732b3d3acd6605aa8faa08e89871e7cde1f0a",
+        "sealed_at": "2026-08-16T10:29:00.000Z"
+      },
+      "canonical_payload": "{\"chain_hash\":\"8d095a67ce1c654659bf36bba56732b3d3acd6605aa8faa08e89871e7cde1f0a\",\"first_entry_hash\":\"193583f729935a12cdc99ad9c99379adf77e15df3b2fbbdb7423e8c7eb02d310\",\"last_entry_hash\":\"5ec7ad72fe154ec3282442db3fa23a2feed2c614e0beac9978b36d65b7150763\",\"sealed_at\":\"2026-08-16T10:29:00.000Z\",\"version\":\"1.0.1\"}",
+      "payload_hash": "5027983d585cbc777bbe93b05394d5caffb2c978e55faacf74b6024a86003195",
+      "envelope": {
+        "algo": "sha256",
+        "schema_version": "1",
+        "event_type": "release.sealed",
+        "payload_hash": "5027983d585cbc777bbe93b05394d5caffb2c978e55faacf74b6024a86003195",
+        "prev_entry_hash": "5ec7ad72fe154ec3282442db3fa23a2feed2c614e0beac9978b36d65b7150763",
+        "occurred_at": "2026-08-16T10:29:00.000Z",
+        "org_id": "org_01J5ZX3D8LQV9W2K4M6N8P0R2T",
+        "repo_id": "repo_01J5ZX3EHM4B6D8F0H2K4M6P8R"
+      },
+      "canonical_envelope": "{\"algo\":\"sha256\",\"event_type\":\"release.sealed\",\"occurred_at\":\"2026-08-16T10:29:00.000Z\",\"org_id\":\"org_01J5ZX3D8LQV9W2K4M6N8P0R2T\",\"payload_hash\":\"5027983d585cbc777bbe93b05394d5caffb2c978e55faacf74b6024a86003195\",\"prev_entry_hash\":\"5ec7ad72fe154ec3282442db3fa23a2feed2c614e0beac9978b36d65b7150763\",\"repo_id\":\"repo_01J5ZX3EHM4B6D8F0H2K4M6P8R\",\"schema_version\":\"1\"}",
+      "entry_hash": "e918fdce5748902bfbbbac3c1a125359cc25628487bf743b4bc9a7f5b3831898"
+    },
+    {
+      "seq": 28,
+      "event_type": "change.authored",
+      "payload": {
+        "commit_sha": "b9621d13dad1f51fbab09ad3b71938ae5f41384c",
+        "diff_fingerprint": "49777f4d25cfcbbeb55de4f9211393d6d9b169fc3f794430481d2b40a0dad956",
+        "file_paths": [
+          "src/module6.ts",
+          "test/module6.test.ts"
+        ],
+        "actor": {
+          "actor_id": "a7f3b2c1-4d5e-4f60-8a9b-0c1d2e3f4a5b",
+          "actor_type": "agent",
+          "agent_tool": "claude-code",
+          "agent_model": "claude-fable-5",
+          "agent_version": "2.x"
+        },
+        "session_ref": "ses_00000000000000000000000006",
+        "session_hash": "dc575915bc1c81a54e15ce03db78265217afee1698e54df91acdbed44338fac8",
+        "loc_added": 46,
+        "loc_removed": 30
+      },
+      "canonical_payload": "{\"actor\":{\"actor_id\":\"a7f3b2c1-4d5e-4f60-8a9b-0c1d2e3f4a5b\",\"actor_type\":\"agent\",\"agent_model\":\"claude-fable-5\",\"agent_tool\":\"claude-code\",\"agent_version\":\"2.x\"},\"commit_sha\":\"b9621d13dad1f51fbab09ad3b71938ae5f41384c\",\"diff_fingerprint\":\"49777f4d25cfcbbeb55de4f9211393d6d9b169fc3f794430481d2b40a0dad956\",\"file_paths\":[\"src/module6.ts\",\"test/module6.test.ts\"],\"loc_added\":46,\"loc_removed\":30,\"session_hash\":\"dc575915bc1c81a54e15ce03db78265217afee1698e54df91acdbed44338fac8\",\"session_ref\":\"ses_00000000000000000000000006\"}",
+      "payload_hash": "b91f7de685c1533333e355e43eaafaeb6399fa95a8ef58bed840385d2cf1ba9f",
+      "envelope": {
+        "algo": "sha256",
+        "schema_version": "1",
+        "event_type": "change.authored",
+        "payload_hash": "b91f7de685c1533333e355e43eaafaeb6399fa95a8ef58bed840385d2cf1ba9f",
+        "prev_entry_hash": "e918fdce5748902bfbbbac3c1a125359cc25628487bf743b4bc9a7f5b3831898",
+        "occurred_at": "2026-08-16T10:30:00.000Z",
+        "org_id": "org_01J5ZX3D8LQV9W2K4M6N8P0R2T",
+        "repo_id": "repo_01J5ZX3EHM4B6D8F0H2K4M6P8R"
+      },
+      "canonical_envelope": "{\"algo\":\"sha256\",\"event_type\":\"change.authored\",\"occurred_at\":\"2026-08-16T10:30:00.000Z\",\"org_id\":\"org_01J5ZX3D8LQV9W2K4M6N8P0R2T\",\"payload_hash\":\"b91f7de685c1533333e355e43eaafaeb6399fa95a8ef58bed840385d2cf1ba9f\",\"prev_entry_hash\":\"e918fdce5748902bfbbbac3c1a125359cc25628487bf743b4bc9a7f5b3831898\",\"repo_id\":\"repo_01J5ZX3EHM4B6D8F0H2K4M6P8R\",\"schema_version\":\"1\"}",
+      "entry_hash": "fa0f2834edbebaa93d752f1673df99191a8d95b8072fe829a666e7d0f5f6914f"
+    },
+    {
+      "seq": 29,
+      "event_type": "spec.linked",
+      "payload": {
+        "change_ref": "b9621d13dad1f51fbab09ad3b71938ae5f41384c",
+        "spec_ref": "SPEC-006",
+        "spec_version": "1.0",
+        "spec_hash": "2124622614861a3770aec3726914fd8259b1897ceb309728b14de517f7b190ba",
+        "linked_at": "2026-08-16T10:31:00.000Z"
+      },
+      "canonical_payload": "{\"change_ref\":\"b9621d13dad1f51fbab09ad3b71938ae5f41384c\",\"linked_at\":\"2026-08-16T10:31:00.000Z\",\"spec_hash\":\"2124622614861a3770aec3726914fd8259b1897ceb309728b14de517f7b190ba\",\"spec_ref\":\"SPEC-006\",\"spec_version\":\"1.0\"}",
+      "payload_hash": "32b53649c4ae02a7d4332a1355a003d2366ba3ab37a42ef4fd0ad6ecb3d73907",
+      "envelope": {
+        "algo": "sha256",
+        "schema_version": "1",
+        "event_type": "spec.linked",
+        "payload_hash": "32b53649c4ae02a7d4332a1355a003d2366ba3ab37a42ef4fd0ad6ecb3d73907",
+        "prev_entry_hash": "fa0f2834edbebaa93d752f1673df99191a8d95b8072fe829a666e7d0f5f6914f",
+        "occurred_at": "2026-08-16T10:31:00.000Z",
+        "org_id": "org_01J5ZX3D8LQV9W2K4M6N8P0R2T",
+        "repo_id": "repo_01J5ZX3EHM4B6D8F0H2K4M6P8R"
+      },
+      "canonical_envelope": "{\"algo\":\"sha256\",\"event_type\":\"spec.linked\",\"occurred_at\":\"2026-08-16T10:31:00.000Z\",\"org_id\":\"org_01J5ZX3D8LQV9W2K4M6N8P0R2T\",\"payload_hash\":\"32b53649c4ae02a7d4332a1355a003d2366ba3ab37a42ef4fd0ad6ecb3d73907\",\"prev_entry_hash\":\"fa0f2834edbebaa93d752f1673df99191a8d95b8072fe829a666e7d0f5f6914f\",\"repo_id\":\"repo_01J5ZX3EHM4B6D8F0H2K4M6P8R\",\"schema_version\":\"1\"}",
+      "entry_hash": "96c25e825755c4df4e45f164b0e5f7278d9516e8b160b11799dff79bc858fafe"
+    },
+    {
+      "seq": 30,
+      "event_type": "change.reviewed",
+      "payload": {
+        "change_ref": "b9621d13dad1f51fbab09ad3b71938ae5f41384c",
+        "reviewer": {
+          "actor_id": "e1d2c3b4-a596-4877-b958-a39b8c7d6e5f",
+          "actor_type": "human"
+        },
+        "decision": "approved",
+        "thread_ref": "https://github.com/olobolo-com/olobolo/pull/6",
+        "decided_at": "2026-08-16T10:32:00.000Z"
+      },
+      "canonical_payload": "{\"change_ref\":\"b9621d13dad1f51fbab09ad3b71938ae5f41384c\",\"decided_at\":\"2026-08-16T10:32:00.000Z\",\"decision\":\"approved\",\"reviewer\":{\"actor_id\":\"e1d2c3b4-a596-4877-b958-a39b8c7d6e5f\",\"actor_type\":\"human\"},\"thread_ref\":\"https://github.com/olobolo-com/olobolo/pull/6\"}",
+      "payload_hash": "179c272bf53780565c4eac3e1d2eee15aa877f552ecd1ea4403579aa3f20e1f0",
+      "envelope": {
+        "algo": "sha256",
+        "schema_version": "1",
+        "event_type": "change.reviewed",
+        "payload_hash": "179c272bf53780565c4eac3e1d2eee15aa877f552ecd1ea4403579aa3f20e1f0",
+        "prev_entry_hash": "96c25e825755c4df4e45f164b0e5f7278d9516e8b160b11799dff79bc858fafe",
+        "occurred_at": "2026-08-16T10:32:00.000Z",
+        "org_id": "org_01J5ZX3D8LQV9W2K4M6N8P0R2T",
+        "repo_id": "repo_01J5ZX3EHM4B6D8F0H2K4M6P8R"
+      },
+      "canonical_envelope": "{\"algo\":\"sha256\",\"event_type\":\"change.reviewed\",\"occurred_at\":\"2026-08-16T10:32:00.000Z\",\"org_id\":\"org_01J5ZX3D8LQV9W2K4M6N8P0R2T\",\"payload_hash\":\"179c272bf53780565c4eac3e1d2eee15aa877f552ecd1ea4403579aa3f20e1f0\",\"prev_entry_hash\":\"96c25e825755c4df4e45f164b0e5f7278d9516e8b160b11799dff79bc858fafe\",\"repo_id\":\"repo_01J5ZX3EHM4B6D8F0H2K4M6P8R\",\"schema_version\":\"1\"}",
+      "entry_hash": "279d6ab1a2a14155c0c067a5375f0a57826809400d69cd7c098c0f219d93218c"
+    },
+    {
+      "seq": 31,
+      "event_type": "test.evidenced",
+      "payload": {
+        "change_ref": "b9621d13dad1f51fbab09ad3b71938ae5f41384c",
+        "result": "passed",
+        "tests_passed": 106,
+        "tests_failed": 0,
+        "coverage_pct": "93.1",
+        "ci_run_ref": "https://github.com/olobolo-com/olobolo/actions/runs/1006",
+        "artifact_hashes": [
+          "e4fb2ae7530afa8815ff1f820a0fc6f8af1821e2078f22d9ed962c14361993d7",
+          "4f207f9009a81f1cc03158ff08dcae9ae6ec4fdc7306b0b38c205b514ab8fef3"
+        ]
+      },
+      "canonical_payload": "{\"artifact_hashes\":[\"e4fb2ae7530afa8815ff1f820a0fc6f8af1821e2078f22d9ed962c14361993d7\",\"4f207f9009a81f1cc03158ff08dcae9ae6ec4fdc7306b0b38c205b514ab8fef3\"],\"change_ref\":\"b9621d13dad1f51fbab09ad3b71938ae5f41384c\",\"ci_run_ref\":\"https://github.com/olobolo-com/olobolo/actions/runs/1006\",\"coverage_pct\":\"93.1\",\"result\":\"passed\",\"tests_failed\":0,\"tests_passed\":106}",
+      "payload_hash": "b5aa95559dbd7459fd5dc52699effb1ed9ad8bab7dfb773a5e58f7e2d2875ee1",
+      "envelope": {
+        "algo": "sha256",
+        "schema_version": "1",
+        "event_type": "test.evidenced",
+        "payload_hash": "b5aa95559dbd7459fd5dc52699effb1ed9ad8bab7dfb773a5e58f7e2d2875ee1",
+        "prev_entry_hash": "279d6ab1a2a14155c0c067a5375f0a57826809400d69cd7c098c0f219d93218c",
+        "occurred_at": "2026-08-16T10:33:00.000Z",
+        "org_id": "org_01J5ZX3D8LQV9W2K4M6N8P0R2T",
+        "repo_id": "repo_01J5ZX3EHM4B6D8F0H2K4M6P8R"
+      },
+      "canonical_envelope": "{\"algo\":\"sha256\",\"event_type\":\"test.evidenced\",\"occurred_at\":\"2026-08-16T10:33:00.000Z\",\"org_id\":\"org_01J5ZX3D8LQV9W2K4M6N8P0R2T\",\"payload_hash\":\"b5aa95559dbd7459fd5dc52699effb1ed9ad8bab7dfb773a5e58f7e2d2875ee1\",\"prev_entry_hash\":\"279d6ab1a2a14155c0c067a5375f0a57826809400d69cd7c098c0f219d93218c\",\"repo_id\":\"repo_01J5ZX3EHM4B6D8F0H2K4M6P8R\",\"schema_version\":\"1\"}",
+      "entry_hash": "badc6aafd8816794c9fbd54c6cdfeacc2e92f617099c7bc830e0044a5bce8c7a"
+    },
+    {
+      "seq": 32,
+      "event_type": "admin.actioned",
+      "payload": {
+        "action": "badge.revoked",
+        "subject_ref": "repo_01J5ZX3EHM4B6D8F0H2K4M6P8R",
+        "actor": {
+          "actor_id": "a7f3b2c1-4d5e-4f60-8a9b-0c1d2e3f4a5b",
+          "actor_type": "agent",
+          "agent_tool": "claude-code",
+          "agent_model": "claude-fable-5",
+          "agent_version": "2.x"
+        },
+        "details_hash": "bf9500ecec9b5ae5da2807bc9a341c104e63e98e0adb366369a8ce874d527e09",
+        "actioned_at": "2026-08-16T10:34:00.000Z"
+      },
+      "canonical_payload": "{\"action\":\"badge.revoked\",\"actioned_at\":\"2026-08-16T10:34:00.000Z\",\"actor\":{\"actor_id\":\"a7f3b2c1-4d5e-4f60-8a9b-0c1d2e3f4a5b\",\"actor_type\":\"agent\",\"agent_model\":\"claude-fable-5\",\"agent_tool\":\"claude-code\",\"agent_version\":\"2.x\"},\"details_hash\":\"bf9500ecec9b5ae5da2807bc9a341c104e63e98e0adb366369a8ce874d527e09\",\"subject_ref\":\"repo_01J5ZX3EHM4B6D8F0H2K4M6P8R\"}",
+      "payload_hash": "31963337154c1b938a2643c20f8982f2f32aa9033fbde4c48de9a6e736db8efe",
+      "envelope": {
+        "algo": "sha256",
+        "schema_version": "1",
+        "event_type": "admin.actioned",
+        "payload_hash": "31963337154c1b938a2643c20f8982f2f32aa9033fbde4c48de9a6e736db8efe",
+        "prev_entry_hash": "badc6aafd8816794c9fbd54c6cdfeacc2e92f617099c7bc830e0044a5bce8c7a",
+        "occurred_at": "2026-08-16T10:34:00.000Z",
+        "org_id": "org_01J5ZX3D8LQV9W2K4M6N8P0R2T",
+        "repo_id": "repo_01J5ZX3EHM4B6D8F0H2K4M6P8R"
+      },
+      "canonical_envelope": "{\"algo\":\"sha256\",\"event_type\":\"admin.actioned\",\"occurred_at\":\"2026-08-16T10:34:00.000Z\",\"org_id\":\"org_01J5ZX3D8LQV9W2K4M6N8P0R2T\",\"payload_hash\":\"31963337154c1b938a2643c20f8982f2f32aa9033fbde4c48de9a6e736db8efe\",\"prev_entry_hash\":\"badc6aafd8816794c9fbd54c6cdfeacc2e92f617099c7bc830e0044a5bce8c7a\",\"repo_id\":\"repo_01J5ZX3EHM4B6D8F0H2K4M6P8R\",\"schema_version\":\"1\"}",
+      "entry_hash": "ba2e0bfc8c58c175e9bfb3349320902b569a36875d159e4c48fcb89176660ff1"
+    },
+    {
+      "seq": 33,
+      "event_type": "release.sealed",
+      "payload": {
+        "version": "1.1.0",
+        "first_entry_hash": "193583f729935a12cdc99ad9c99379adf77e15df3b2fbbdb7423e8c7eb02d310",
+        "last_entry_hash": "ba2e0bfc8c58c175e9bfb3349320902b569a36875d159e4c48fcb89176660ff1",
+        "chain_hash": "1a610f4a6ed410fbedde968c0651516c221e5e0739ac822f3a3f8f54b76c3ca4",
+        "sealed_at": "2026-08-16T10:35:00.000Z"
+      },
+      "canonical_payload": "{\"chain_hash\":\"1a610f4a6ed410fbedde968c0651516c221e5e0739ac822f3a3f8f54b76c3ca4\",\"first_entry_hash\":\"193583f729935a12cdc99ad9c99379adf77e15df3b2fbbdb7423e8c7eb02d310\",\"last_entry_hash\":\"ba2e0bfc8c58c175e9bfb3349320902b569a36875d159e4c48fcb89176660ff1\",\"sealed_at\":\"2026-08-16T10:35:00.000Z\",\"version\":\"1.1.0\"}",
+      "payload_hash": "e12635c7c70d9403fdc25d1c344bac6f5cf182dc95183a04bfab6f8a7d181365",
+      "envelope": {
+        "algo": "sha256",
+        "schema_version": "1",
+        "event_type": "release.sealed",
+        "payload_hash": "e12635c7c70d9403fdc25d1c344bac6f5cf182dc95183a04bfab6f8a7d181365",
+        "prev_entry_hash": "ba2e0bfc8c58c175e9bfb3349320902b569a36875d159e4c48fcb89176660ff1",
+        "occurred_at": "2026-08-16T10:35:00.000Z",
+        "org_id": "org_01J5ZX3D8LQV9W2K4M6N8P0R2T",
+        "repo_id": "repo_01J5ZX3EHM4B6D8F0H2K4M6P8R"
+      },
+      "canonical_envelope": "{\"algo\":\"sha256\",\"event_type\":\"release.sealed\",\"occurred_at\":\"2026-08-16T10:35:00.000Z\",\"org_id\":\"org_01J5ZX3D8LQV9W2K4M6N8P0R2T\",\"payload_hash\":\"e12635c7c70d9403fdc25d1c344bac6f5cf182dc95183a04bfab6f8a7d181365\",\"prev_entry_hash\":\"ba2e0bfc8c58c175e9bfb3349320902b569a36875d159e4c48fcb89176660ff1\",\"repo_id\":\"repo_01J5ZX3EHM4B6D8F0H2K4M6P8R\",\"schema_version\":\"1\"}",
+      "entry_hash": "534e58ce81a0bdb8a68e4a1843c60241f56feb056a0ec86a3e0c8b25b537f388"
     }
   ]
 }

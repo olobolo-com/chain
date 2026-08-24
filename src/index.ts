@@ -8,19 +8,24 @@
 
 export {
   ALGO,
+  CURRENT_SCHEMA_VERSION,
   EVENT_TYPES,
+  EVENT_TYPES_V1,
   GENESIS_PREV_ENTRY_HASH,
   SCHEMA_VERSION,
   assertValidEnvelope,
   canonicalize,
   entryHash,
+  eventTypesFor,
   payloadHash,
   sha256Hex,
 } from './core/canonical.js';
-export type { CanonicalValue, Envelope, EventType } from './core/canonical.js';
+export type { CanonicalValue, Envelope, EventType, EventTypeV0 } from './core/canonical.js';
 
 export type {
   Actor,
+  ActorRef,
+  AdminActioned,
   ChangeAuthored,
   ChangeReviewed,
   EventPayload,

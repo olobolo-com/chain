@@ -8,11 +8,11 @@ import { appendFileSync, existsSync, mkdirSync, readFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 import {
   ALGO,
+  CURRENT_SCHEMA_VERSION,
   type CanonicalValue,
   type Envelope,
   type EventType,
   GENESIS_PREV_ENTRY_HASH,
-  SCHEMA_VERSION,
   canonicalize,
   entryHash,
   payloadHash,
@@ -37,7 +37,9 @@ export function chainHead(file: string): string {
   return readChain(file).at(-1)?.entry_hash ?? GENESIS_PREV_ENTRY_HASH;
 }
 
-/** Build, hash and append one entry to the chain file. Returns the entry. */
+/** Build, hash and append one entry to the chain file. Returns the entry.
+ *  New entries are stamped with the current schema version (v1 — SPEC-031);
+ *  existing v0 entries in the file stay as they are and verify against v0. */
 export function appendEntry(
   file: string,
   eventType: EventType,
@@ -47,7 +49,7 @@ export function appendEntry(
 ): ChainEntry {
   const envelope: Envelope = {
     algo: ALGO,
-    schema_version: SCHEMA_VERSION,
+    schema_version: CURRENT_SCHEMA_VERSION,
     event_type: eventType,
     payload_hash: payloadHash(payload),
     prev_entry_hash: chainHead(file),

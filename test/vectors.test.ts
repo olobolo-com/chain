@@ -29,9 +29,23 @@ const data = JSON.parse(readFileSync(join(import.meta.dir, '..', 'test-vectors.j
   }[];
 };
 
-describe('SPEC-001 test vectors (frozen)', () => {
-  test('has 15 vectors', () => {
-    expect(data.vectors.length).toBe(15);
+describe('SPEC-001 test vectors (v0 frozen + v1 additions)', () => {
+  test('has 33 vectors: 15 frozen v0 + 18 v1 (SPEC-031/ADR-005)', () => {
+    expect(data.vectors.length).toBe(33);
+    expect(data.vectors.slice(0, 15).every((v) => v.envelope.schema_version === '0')).toBe(true);
+    expect(data.vectors.slice(15).every((v) => v.envelope.schema_version === '1')).toBe(true);
+  });
+
+  test('v0 vectors are the frozen originals (head unchanged forever)', () => {
+    expect(data.vectors[14]?.entry_hash).toBe(
+      '155288257afe338b96dbcde55e8290065f821d9576df8e4471966e7c1cd98fa0',
+    );
+  });
+
+  test('v1 payloads carry no identity fields (SPEC-031 K1)', () => {
+    for (const v of data.vectors.slice(15)) {
+      expect(JSON.stringify(v.payload)).not.toContain('git_identity');
+    }
   });
 
   for (const v of data.vectors) {
@@ -61,7 +75,8 @@ describe('SPEC-001 test vectors (frozen)', () => {
     );
     const result = verifyLines(lines);
     expect(result.ok).toBe(true);
-    expect(result.entryCount).toBe(15);
-    expect(Object.keys(result.countsByType).length).toBe(5);
+    expect(result.entryCount).toBe(33);
+    expect(Object.keys(result.countsByType).length).toBe(6);
+    expect(result.countsByType['admin.actioned']).toBe(3);
   });
 });

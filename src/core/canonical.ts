@@ -14,7 +14,14 @@
 
 import { createHash } from 'node:crypto';
 
+/** The original frozen version. Kept under its historical name — a large
+ *  body of v0-era code imports it — but new writers should stamp
+ *  CURRENT_SCHEMA_VERSION. */
 export const SCHEMA_VERSION = '0';
+/** schema_version stamped on newly written entries (SPEC-031 / ADR-005:
+ *  v1 = pseudonymous actors + admin events; v0 entries stay valid forever
+ *  and verify against their own version). */
+export const CURRENT_SCHEMA_VERSION = '1';
 export const ALGO = 'sha256';
 export const GENESIS_PREV_ENTRY_HASH = '0'.repeat(64);
 
@@ -25,7 +32,18 @@ export const EVENT_TYPES = [
   'test.evidenced',
   'release.sealed',
 ] as const;
-export type EventType = (typeof EVENT_TYPES)[number];
+/** v1 adds the admin event type (SPEC-024 K3 / SPEC-031 K5) — the five
+ *  v0 types are unchanged and remain valid in v1. */
+export const EVENT_TYPES_V1 = [...EVENT_TYPES, 'admin.actioned'] as const;
+export type EventTypeV0 = (typeof EVENT_TYPES)[number];
+export type EventType = (typeof EVENT_TYPES_V1)[number];
+
+/** The event types admissible under a given schema_version. */
+export function eventTypesFor(schemaVersion: string): readonly EventType[] {
+  if (schemaVersion === '0') return EVENT_TYPES;
+  if (schemaVersion === '1') return EVENT_TYPES_V1;
+  throw new Error(`Unsupported schema_version "${schemaVersion}".`);
+}
 
 const TIMESTAMP_RE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;
 const SHA256_HEX_RE = /^[0-9a-f]{64}$/;
@@ -107,11 +125,12 @@ export interface Envelope {
 
 export function assertValidEnvelope(env: Envelope): void {
   if (env.algo !== ALGO) throw new Error(`Unsupported algo "${env.algo}".`);
-  if (env.schema_version !== SCHEMA_VERSION) {
-    throw new Error(`Unsupported schema_version "${env.schema_version}".`);
-  }
-  if (!EVENT_TYPES.includes(env.event_type)) {
-    throw new Error(`Unknown event_type "${env.event_type}".`);
+  // Entries always validate against their OWN version (SPEC-001 K5).
+  const types = eventTypesFor(env.schema_version);
+  if (!types.includes(env.event_type)) {
+    throw new Error(
+      `Unknown event_type "${env.event_type}" for schema_version "${env.schema_version}".`,
+    );
   }
   if (!SHA256_HEX_RE.test(env.payload_hash))
     throw new Error('payload_hash must be 64 lowercase hex chars.');

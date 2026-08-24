@@ -69,7 +69,8 @@ export function runSelftest(): Verdict {
   );
 
   const clean = verifyLines(lines);
-  if (!clean.ok || clean.entryCount !== 15 || Object.keys(clean.countsByType).length !== 5) {
+  // 33 vectors: 15 frozen v0 + 18 v1 (SPEC-031), across all six event types.
+  if (!clean.ok || clean.entryCount !== 33 || Object.keys(clean.countsByType).length !== 6) {
     return {
       command: 'selftest',
       ok: false,
@@ -109,7 +110,7 @@ export function formatVerdict(v: Verdict): string {
   if (v.command === 'selftest') {
     out.push(
       v.ok
-        ? 'selftest: OK — 15 bundled vectors verify, and a tampered copy is correctly rejected.'
+        ? 'selftest: OK — 33 bundled vectors (v0+v1) verify, and a tampered copy is correctly rejected.'
         : `selftest: FAILED — ${v.error ?? 'unknown reason'}`,
     );
     return out.join('\n');
