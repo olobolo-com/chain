@@ -1,6 +1,5 @@
 {
   "name": "@olobolo-com/verifier",
-  "private": true,
   "version": "0.1.0",
   "description": "Verify an OLOBOLO evidence chain independently - no account, no network, no trust required.",
   "author": "OLOBOLO ApS",

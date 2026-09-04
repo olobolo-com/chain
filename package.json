@@ -1,6 +1,5 @@
 {
   "name": "@olobolo-com/chain",
-  "private": true,
   "version": "0.1.0",
   "description": "Canonical serialization, hashing and verification for OLOBOLO evidence chains (frozen schema v0).",
   "author": "OLOBOLO ApS",
