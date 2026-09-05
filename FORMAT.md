@@ -1,11 +1,13 @@
 <!-- Copyright (c) 2026 OLOBOLO ApS -->
 
-# OLOBOLO chain format — schema_version "0"
+# OLOBOLO chain format — schema_version "0" and "1"
 
-Normative definition of the OLOBOLO evidence-chain entry format (SPEC-001).
-This format is frozen: the serialization of `schema_version: "0"` never
-changes. Format evolution happens only by introducing a new schema version;
-old entries are always verified against their own version.
+Normative definition of the OLOBOLO evidence-chain entry format (SPEC-001;
+version 1 per SPEC-031). Every shipped version is frozen: its serialization
+never changes. Format evolution happens only by introducing a new schema
+version; old entries are always verified against their own version. The
+sections below define version 0; [Version 1](#schema_version-1) lists
+exactly what changed.
 
 ## Event types
 
@@ -65,12 +67,41 @@ The envelope contains exactly:
   per version, and `algo` keeps the door open for future hash algorithms
   without breaking history.
 
+## schema_version "1"
+
+Version 1 keeps the envelope, the canonical serialization and the hashing
+rules above unchanged — an implementation of v0 hashes v1 entries without
+modification. What changed is the payload rules (`events.ts`, the `V1`
+schemas):
+
+1. **Pseudonymous actors.** `actor` / `reviewer` carry `actor_id` (a random
+   v4 UUID assigned on first appearance), `actor_type` and optional
+   `agent_tool` / `agent_model` / `agent_version` — never a git identity,
+   username, e-mail or display name. Identities live outside the chain in a
+   deletable register.
+2. **Whitelisted shapes.** Free-text references (`change_ref`, `spec_ref`,
+   `session_ref`, `ci_run_ref`, `thread_ref`, `subject_ref`) match
+   `^[\w./:#?=&%+-]+$`; `commit_sha` is 7-40 hex; `version` matches
+   `^[\w.+-]+$`; `file_paths` exclude `<`, `>` and control characters. Identity-
+   looking content is rejected by the contract, not by convention.
+3. **New event type `admin.actioned`** (v1 only): an administrative act —
+   `actor.deleted`, `plan.changed`, `badge.revoked`, `content.published`,
+   `price.changed` — with `subject_ref`, a pseudonymous `actor`, optional
+   `details_hash` and `actioned_at`. An envelope with `schema_version: "0"`
+   and `event_type: admin.actioned` is invalid.
+
+A chain may contain entries of both versions in one sequence; each entry's
+envelope names the version its payload is validated against.
+
 ## Test vectors
 
-[`test-vectors.json`](./test-vectors.json) holds 15 chained vectors — three
-per event type — with the exact canonical strings and expected hashes. Any
-implementation must reproduce every `payload_hash` and `entry_hash` from the
-`payload`/`envelope` objects alone.
+[`test-vectors.json`](./test-vectors.json) holds 33 chained vectors: 1-15
+are the frozen v0 originals (three per event type, byte-identical forever)
+and 16-33 are schema_version "1" (three per v1 event type, `admin.actioned`
+included), chained onto the v0 head as one continuous chain — with the
+exact canonical strings and expected hashes. Any implementation must
+reproduce every `payload_hash` and `entry_hash` from the `payload`/`envelope`
+objects alone.
 
 ```
 node generate-vectors.ts   # regenerate (deterministic, byte-identical)
@@ -92,5 +123,5 @@ $s = '<canonical_envelope>'
 ```
 
 The reference implementation has been cross-checked by an independent
-Python implementation (stdlib `json` + `hashlib`) reproducing all 15
+Python implementation (stdlib `json` + `hashlib`) reproducing all
 `entry_hash` values and the same chain head.
